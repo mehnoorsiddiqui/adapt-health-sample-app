@@ -1,0 +1,16 @@
+{
+  "name": "adapt-health-sample-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "adapthealth-partner-apilib": "./AdaptHealth Partner API"
+  }
+}
