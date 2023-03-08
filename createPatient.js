@@ -1,20 +1,7 @@
-const {
-  ApiError,
-//   Client,
-  PatientsController,
-} = require("adapthealth-partner-apilib");
-
-// const client = new Client({
-//   timeout: 0,
-//   oAuthClientId: "5b2f389a0f1748ce8738bdee029404ef",
-//   oAuthClientSecret: "e414A8Eda3F34d60AEa4D8E93F5231Eb",
-//   oAuthToken: null,
-// });
+const { ApiError, PatientsController } = require("adapthealth-partner-apilib");
 
 const createPatient = async (newClient) => {
   try {
-    // const token = await client.clientCredentialsAuthManager.fetchToken();
-    // const newClient = client.withConfiguration({ oAuthToken: token });
     const patientsController = new PatientsController(newClient);
 
     const bodyIdentifier = [];
@@ -68,4 +55,4 @@ const createPatient = async (newClient) => {
 };
 
 // createPatient();
-module.exports= createPatient;
+module.exports = createPatient;
