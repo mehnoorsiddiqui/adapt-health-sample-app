@@ -1,8 +1,4 @@
-const {
-  ApiError,
-  // Client,
-  PatientsController,
-} = require("adapthealth-partner-apilib");
+const { ApiError, PatientsController } = require("adapthealth-partner-apilib");
 
 const retrieveOrder = async (id, newClient) => {
   const patientsController = new PatientsController(newClient);

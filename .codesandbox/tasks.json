@@ -22,6 +22,10 @@
     "npm start": {
       "name": "npm start",
       "command": "npm start"
+    },
+    "cd AdaptHealth\\ Partner\\ API": {
+      "name": "cd AdaptHealth\\ Partner\\ API",
+      "command": "cd AdaptHealth\\ Partner\\ API"
     }
   }
 }

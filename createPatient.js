@@ -13,15 +13,13 @@ const createPatient = async (newClient) => {
       suffix: "",
     };
 
-    const bodyTelecom = [];
-
-    const bodytelecom0 = {
-      system: "phone",
-      value: "6108251191",
-      use: "billing",
-    };
-
-    bodyTelecom[0] = bodytelecom0;
+    const bodyTelecom = [
+      {
+        system: "phone",
+        value: "6108251191",
+        use: "billing",
+      },
+    ];
 
     const bodyAddress = [];
 
@@ -54,5 +52,4 @@ const createPatient = async (newClient) => {
   }
 };
 
-// createPatient();
 module.exports = createPatient;

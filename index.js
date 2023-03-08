@@ -14,13 +14,12 @@ const client = new Client({
 const appFlow = async () => {
   const token = await client.clientCredentialsAuthManager.fetchToken();
   const newClient = client.withConfiguration({ oAuthToken: token });
-  const PatientID = await createPatient(newClient);
+
+  await createPatient(newClient);
   const OrderID = await createOrder(newClient);
   const DocumentID = await uploadDocumentonOrder(OrderID, newClient);
-  const retrieveOrderResponse = await retrieveOrder(DocumentID,newClient);
-//   console.log(OrderID)
-//   console.log(PatientID)
-  console.log(retrieveOrderResponse );
+  const retrieveOrderResponse = await retrieveOrder(DocumentID, newClient);
+  console.log(retrieveOrderResponse);
 };
 
 appFlow();
