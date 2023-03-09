@@ -1,132 +1,100 @@
-const {
-  ApiError,
-//   Client,
-  OrdersController,
-} = require("adapthealth-partner-apilib");
+// import the SDK (autogen code)
+import { ApiError, OrdersController } from "adapthealth-partner-apilib";
 
-// const client = new Client({
-//   timeout: 0,
-//   oAuthClientId: "5b2f389a0f1748ce8738bdee029404ef",
-//   oAuthClientSecret: "e414A8Eda3F34d60AEa4D8E93F5231Eb",
-//   oAuthToken: null,
-// });
-
+// Define an asynchronous function to create an order
 const createOrder = async (newClient) => {
-  
-    // const token = await client.clientCredentialsAuthManager.fetchToken();
-    // console.log(token);
-    // const newClient = client.withConfiguration({ oAuthToken: token });
+  const ordersController = new OrdersController(newClient);
 
-    const ordersController = new OrdersController(newClient);
+  // Define the body of the request with the necessary fields for a new order
+  const bodyAddress = {
+    type: "delivery",
+    line1: "House no, Abc",
+    line2: "area xyz",
+    city: "New York",
+    state: "New York",
+    postalCode: "10001",
+    country: "USA",
+  };
+  const bodySubject = {
+    type: "order",
+    identifier: [
+      {
+        use: "external",
+        type: "payor",
+        value: "56945",
+      },
+    ],
+  };
 
-    const bodyIdentifier = [];
-
-    const bodyTelecom = [];
-
-    const bodyAddress = {
+  const bodyRequester = {
+    identifier: [
+      {
+        use: "internal",
+        type: "patient",
+        value: "123456",
+      },
+    ],
+    name: {
+      family: "Doe",
+      given: "Henry",
+      prefix: "Dr.",
+      suffix: "",
+    },
+    telecom: {
+      system: "phone",
+      value: "(123) 456-7890",
+      use: "mobile",
+    },
+    address: {
       type: "physical",
-      line1: "House no, Abc, area xyz",
-      line2: "country unknown",
+      line1: "House no, xyz",
+      line2: "area abc",
       city: "New York",
       state: "New York",
       postalCode: "10001",
       country: "USA",
-    };
+    },
+    qualification: [
+      {
+        identifier: [
+          {
+            use: "source",
+            type: "NPI",
+            value: "1234567890",
+          },
+        ],
+      },
+    ],
+  };
 
-    const bodySubject = {
-      type: "order",
-      identifier: [
-        {
-          use: "external",
-          type: "payor",
-          value: "value3",
-        },
-        {
-          use: "source",
-          type: "NPI",
-          value: "value4",
-        },
-      ],
-    };
+  const body = {
+    identifier: [],
+    status: "active",
+    neededTime: "2016-03-13T12:52:32.123Z",
+    telecom: [],
+    address: bodyAddress,
+    subject: bodySubject,
+    services: [],
+    requester: bodyRequester,
+    diagnoses: ["A00", "D50"],
+    note: "no note",
+  };
 
-    const bodyServices = [];
-
-    const bodyRequesterName = {
-      family: "Doe",
-      given: "John",
-      prefix: "Mr",
-      suffix: "",
-    };
-
-    const bodyRequesterTelecom = {
-      system: "fax",
-      value: "555-123-4567",
-      use: "delivery",
-    };
-
-    const bodyRequesterAddress = {
-      type: "delivery",
-      line1: "line14",
-      line2: "line26",
-      city: "city2",
-      state: "state8",
-      postalCode: "postalCode4",
-      country: "country6",
-    };
-    const bodyRequesterIdentifier = [
-        {
-          "use": "internal",
-          "type": "patient",
-          "value": "value7"
-        }
-      ];
-     const  bodyRequesterQualification =  [
-        {
-          "identifier": [
-            {
-              "use": "external",
-              "type": "payor",
-              "value": "456"
-            }
-          ]
-        }
-    ];
-    const bodyRequester = {
-        identifier: bodyRequesterIdentifier ,
-      name: bodyRequesterName,
-      telecom: bodyRequesterTelecom,
-      address: bodyRequesterAddress,
-      qualification: bodyRequesterQualification
-    };
-
-    const bodyDiagnoses = ["diagnoses8", "diagnoses9"];
-    const body = {
-      identifier: bodyIdentifier,
-      status: "active",
-      neededTime: "2016-03-13T12:52:32.123Z",
-      telecom: bodyTelecom,
-      address: bodyAddress,
-      subject: bodySubject,
-      services: bodyServices,
-      requester: bodyRequester,
-      diagnoses: bodyDiagnoses,
-      note: "note8",
-    };
-
-    try {
-      const { result, ...httpResponse } = await ordersController.createAnOrder(
-        body
-      );
-      // Get more response info...
-      // const { statusCode, headers } = httpResponse;
-      return result.correlationId;
-    } catch (error) {
-      console.log(error);
-      if (error instanceof ApiError) {
-        const errors = error.result;
-        // const { statusCode, headers } = error;
-      }
+  // call the createAnOrder method (autogen code)
+  try {
+    const { result, ...httpResponse } = await ordersController.createAnOrder(
+      body
+    );
+    //fetch correlationId
+    return result.correlationId;
+  } catch (error) {
+    console.log(error);
+    if (error instanceof ApiError) {
+      const errors = error.result;
+      // const { statusCode, headers } = error;
     }
+  }
 };
-// createOrder();
-module.exports = createOrder;
+
+// Export the createOrder function
+export default createOrder;

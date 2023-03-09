@@ -1,22 +1,15 @@
-const {
+// import the SDK and necessary modules (autogen code)
+import {
   ApiError,
-  Client,
   FileWrapper,
   OrdersController,
-} = require("adapthealth-partner-apilib");
-const fs = require("fs");
+} from "adapthealth-partner-apilib";
 
-const client = new Client({
-  timeout: 0,
-  oAuthClientId: "5b2f389a0f1748ce8738bdee029404ef",
-  oAuthClientSecret: "e414A8Eda3F34d60AEa4D8E93F5231Eb",
-  oAuthToken: null,
-});
+import fs from "fs";
 
-const uploadDocumentonOrder = async (id,newClient) => {
-//   const token = await client.clientCredentialsAuthManager.fetchToken();
-//   console.log(token);
-//   const newClient = client.withConfiguration({ oAuthToken: token });
+// Define an asynchronous function to upload document on order
+const uploadDocumentonOrder = async (id, newClient) => {
+  //call the uploadADocument method (autogen code)
   const ordersController = new OrdersController(newClient);
   const file = new FileWrapper(fs.createReadStream("./Test file.pdf"));
   try {
@@ -24,9 +17,7 @@ const uploadDocumentonOrder = async (id,newClient) => {
       id,
       file
     );
-    // Get more response info...
-    // const { statusCode, headers } = httpResponse;
-    console.log(result);
+    // fetch document correlationId
     return result.correlationId;
   } catch (error) {
     if (error instanceof ApiError) {
@@ -35,5 +26,6 @@ const uploadDocumentonOrder = async (id,newClient) => {
     }
   }
 };
-// uploadDocumentonOrder("699f5980-55f6-11ed-a6cf-121c5bd7fdbd");
-module.exports = uploadDocumentonOrder;
+
+// Export the uploadDocumentonOrder function
+export default uploadDocumentonOrder;

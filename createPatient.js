@@ -1,62 +1,41 @@
-const {
-  ApiError,
-//   Client,
-  PatientsController,
-} = require("adapthealth-partner-apilib");
+// import the SDK  (autogen code)
+import { ApiError, PatientsController } from "adapthealth-partner-apilib";
 
-// const client = new Client({
-//   timeout: 0,
-//   oAuthClientId: "5b2f389a0f1748ce8738bdee029404ef",
-//   oAuthClientSecret: "e414A8Eda3F34d60AEa4D8E93F5231Eb",
-//   oAuthToken: null,
-// });
-
+// Define an asynchronous function to create a patient
 const createPatient = async (newClient) => {
-  try {
-    // const token = await client.clientCredentialsAuthManager.fetchToken();
-    // const newClient = client.withConfiguration({ oAuthToken: token });
-    const patientsController = new PatientsController(newClient);
+  // create an instance of the PatientsController class (autogen code)
+  const patientsController = new PatientsController(newClient);
 
-    const bodyIdentifier = [];
-
-    const bodyName = {
-      family: "Doe",
-      given: "John",
-      prefix: "Mr",
-      suffix: "",
-    };
-
-    const bodyTelecom = [];
-
-    const bodytelecom0 = {
+  // Define the body of the request with the necessary fields for a new patient
+  const bodyName = {
+    family: "Doe",
+    given: "John",
+    prefix: "Mr",
+    suffix: "",
+  };
+  const bodyTelecom = [
+    {
       system: "phone",
       value: "6108251191",
       use: "billing",
-    };
+    },
+  ];
 
-    bodyTelecom[0] = bodytelecom0;
-
-    const bodyAddress = [];
-
-    const bodyContact = [];
-
-    const bodyCoverage = [];
-
-    const body = {
-      identifier: bodyIdentifier,
-      name: bodyName,
-      telecom: bodyTelecom,
-      gender: "male",
-      birthDate: "1957-09-01",
-      address: bodyAddress,
-      contact: bodyContact,
-      coverage: bodyCoverage,
-    };
-
+  const body = {
+    identifier: [],
+    name: bodyName,
+    telecom: bodyTelecom,
+    gender: "male",
+    birthDate: "1957-09-01",
+    address: [],
+    contact: [],
+    coverage: [],
+  };
+  //call the createAPatient method (autogen code)
+  try {
     const { result, ...httpResponse } = await patientsController.createAPatient(
       body
     );
-
     return result.correlationId;
   } catch (error) {
     console.log(error);
@@ -67,5 +46,5 @@ const createPatient = async (newClient) => {
   }
 };
 
-// createPatient();
-module.exports= createPatient;
+// Export the createPatient function
+export default createPatient;
