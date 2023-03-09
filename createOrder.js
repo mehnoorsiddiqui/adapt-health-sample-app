@@ -3,6 +3,8 @@ import { ApiError, OrdersController } from "adapthealth-partner-apilib";
 
 // Define an asynchronous function to create an order
 const createOrder = async (newClient) => {
+
+  // create an instance of the OrdersController class (autogen code)
   const ordersController = new OrdersController(newClient);
 
   // Define the body of the request with the necessary fields for a new order
